@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import AdminPanel from './Pages/AdminPanel.jsx';
 import Login from './pages/Login';
+import ResetPassword from './Pages/ResetPassword.jsx';
 import Sales from './pages/Sales';
 
 function App() {
@@ -29,7 +30,16 @@ function App() {
         {/* Redireciona para login caso o usuário não esteja autenticado */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      <Routes>
+        {/* Rota pública para redefinir a senha */}
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        
+        {/* Outras rotas já existentes */}
+        <Route path="/" element={<Login />} />
+        {/* Outras rotas de vendas e admin */}
+      </Routes>
     </Router>
+    
   );
 }
 

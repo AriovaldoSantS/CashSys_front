@@ -1,40 +1,54 @@
-import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Grid, List, ListItem, ListItemText, Typography } from '@mui/material';
 import React from 'react';
 
+interface Sale {
+  id: number;
+  value: number;
+}
+
+interface Product {
+  name: string;
+  quantity: number;
+}
+
 interface ContentAreaProps {
-  sales: Array<{ productName: string; quantity: number; price: number }>;
+  sales: Sale[];
+  products: Product[];
   totalSales: number;
 }
 
-function ContentArea({ sales, totalSales }: ContentAreaProps) {
+function ContentArea({ sales, products, totalSales }: ContentAreaProps) {
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        padding: '20px',
-        backgroundColor: '#ffffff',
-        height: '100vh',
-        boxSizing: 'border-box',
-      }}
-    >
-      <Typography variant="h5" gutterBottom>
-        Produtos Vendidos Hoje
-      </Typography>
-      <List>
-        {sales.map((sale, index) => (
-          <ListItem key={index}>
-            <ListItemText
-              primary={`${sale.productName} - Quantidade: ${sale.quantity}`}
-              secondary={`Preço: ${sale.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`}
-            />
-          </ListItem>
-        ))}
-      </List>
+    <Grid container sx={{ padding: 2 }}>
+      {/* Vendas do Dia */}
+      <Grid item xs={6} sx={{ padding: 2, border: '1px solid #FFF', marginBottom: 2 }}>
+        <Typography variant="h6">Vendas</Typography>
+        <List>
+          {sales.map((sale) => (
+            <ListItem key={sale.id}>
+              <ListItemText primary={`Venda ${sale.id}`} secondary={`R$ ${sale.value.toFixed(2)}`} />
+            </ListItem>
+          ))}
+        </List>
+      </Grid>
 
-      <Typography variant="h6" style={{ marginTop: '20px' }}>
-        Total de Vendas: {totalSales.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-      </Typography>
-    </Box>
+      {/* Produtos e Estoque */}
+      <Grid item xs={6} sx={{ padding: 2, border: '1px solid #FFF' }}>
+        <Typography variant="h6">Produtos e Estoque</Typography>
+        <List>
+          {products.map((product, index) => (
+            <ListItem key={index}>
+              <ListItemText primary={product.name} secondary={`${product.quantity} unidades`} />
+            </ListItem>
+          ))}
+        </List>
+      </Grid>
+
+      {/* Total de Vendas */}
+      <Grid item xs={12} sx={{ padding: 2, marginTop: 2 }}>
+        <Typography variant="h6">Total do Dia: R$ {totalSales.toFixed(2)}</Typography>
+      </Grid>
+    </Grid>
   );
 }
 

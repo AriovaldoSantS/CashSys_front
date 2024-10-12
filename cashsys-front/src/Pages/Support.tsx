@@ -2,19 +2,19 @@ import { Box, Typography } from '@mui/material';
 import React from 'react';
 import ToobarSuperior from '../components/ToobarSuperior';
 
-function Stock() {
+function Support() {
   return (
     <>
       <ToobarSuperior />
       {/* Conteúdo Principal */}
       <Box sx={{ marginTop: '64px', padding: '16px' }}>
         <Typography variant="h4" sx={{ color: '#000' }}>
-          Página de Estoque
+          Página de Suporte
         </Typography>
-        {/* Adicione o conteúdo da página de Estoque aqui */}
+        {/* Adicione o conteúdo da página de Suporte aqui */}
       </Box>
     </>
   );
 }
 
-export default Stock;
+export default Support;
